@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
+//Post route for menu
 router.post('/', async (req, res) => {
     try {
         const data = req.body;
