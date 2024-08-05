@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
     }
 })
 
+//get route for menu
 router.get('/', async (req, res) => {
     try {
         const data = await Menu.find();
