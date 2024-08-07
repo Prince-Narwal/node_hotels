@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const db = require('./db');
+require('dotenv').config();
 
 const Person = require('./models/Person');
 const Menu = require('./models/menu')
@@ -43,33 +44,6 @@ app.get('/idli', (req, res) => {
     })
 })*/
 
-app.post('/menu', async (req, res) => {
-    try {
-        const data = req.body;
-
-        const newMenu = new Menu(data);
-
-        const response = await newMenu.save();
-        console.log("data saved");
-        res.status(200).json(response);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ error: "Internal server error" })
-    }
-})
-
-app.get('/menu', async (req, res) => {
-    try {
-        const data = await Menu.find();
-        console.log("menu data fetched successfully");
-        res.status(200).json(data);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ error: "Internal server error" });
-    }
-})
 
 //import the router files for person
 const personRoutes=require('./routes/personroutes')
@@ -79,8 +53,9 @@ const menuRoutes=require('./routes/menuroutes')
 app.use('/person',personRoutes);
 app.use('/menu',menuRoutes);
 
+const PORT=process.env.PORT ||3000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("Server is running on port 3000")
 })
 
